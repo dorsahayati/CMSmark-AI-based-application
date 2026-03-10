@@ -1,0 +1,2 @@
+dist/CMSMARK.exe filter=lfs diff=lfs merge=lfs -text
+build/CMSmark/CMSMARK.pkg filter=lfs diff=lfs merge=lfs -text
