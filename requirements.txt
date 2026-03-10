@@ -1,0 +1,8 @@
+pandas
+numpy
+matplotlib
+matplotlib-venn
+plotly
+scikit-learn
+pyinstaller
+tkinterdnd2
