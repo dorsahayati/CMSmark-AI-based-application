@@ -1,4 +1,4 @@
-# CMSmark GUI Application
+# CMSmark AI-based classifier Application
 
 ## Overview
 CMSmark is a graphical user interface (GUI) application designed for performing classification tasks using machine learning models. The application allows users to input CSV data, set a probability threshold, and select a model type (excellent, good, or excellent-good) for inference. It generates various results and visualizations based on the model predictions.
