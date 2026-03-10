@@ -62,6 +62,12 @@ python-gui-app/
    - Set the desired probability threshold.
    - Select the model type for inference.
    - Click on the "Run Inference" button to generate results and visualizations.
+  
+<img width="817" height="537" alt="image" src="https://github.com/user-attachments/assets/58032c86-b799-489d-b738-484bf7d37c38" />
+
+
+
+
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
