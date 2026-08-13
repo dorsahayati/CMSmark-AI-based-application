@@ -1,8 +1,8 @@
 pandas
 numpy
 matplotlib
-matplotlib-venn
 plotly
-scikit-learn
+scikit-learn==1.7.0
+xgboost
+PyQt5
 pyinstaller
-tkinterdnd2

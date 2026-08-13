@@ -1,15 +1,19 @@
 # -*- mode: python ; coding: utf-8 -*-
+import os
 from PyInstaller.utils.hooks import collect_submodules
+
+# SPECPATH is the directory containing this spec file — works on any machine/OS
+src_dir = os.path.join(SPECPATH, 'src')
 
 hiddenimports = []
 hiddenimports += collect_submodules('sklearn')
 
 
 a = Analysis(
-    ['E:\\project\\Dorsa\\python-gui-app\\src\\main.py'],
-    pathex=['E:\\project\\Dorsa\\python-gui-app\\src'],
+    [os.path.join(src_dir, 'main.py')],
+    pathex=[src_dir],
     binaries=[],
-    datas=[('E:\\project\\Dorsa\\python-gui-app\\src\\models', 'models')],
+    datas=[(os.path.join(src_dir, 'models'), 'models')],
     hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
