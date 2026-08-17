@@ -1,5 +1,3 @@
 __pycache__/
 *.pyc
 *.spec.bak
-build/CMSmark/CMSMARK.pkg
-dist/CMSMARK.exe
