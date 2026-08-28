@@ -9,19 +9,20 @@ classifiers, and generating per-model and cross-model comparison results.
 ## Table of Contents
 
 - [1. Overview](#1-overview)
-- [2. Repository Structure](#2-repository-structure)
-- [3. Machine-Learning Models](#3-machine-learning-models)
-- [4. Feature Selection](#4-feature-selection)
-- [5. Installation](#5-installation)
-- [6. Running the Application](#6-running-the-application)
-- [7. Input Data](#7-input-data)
-- [8. Prediction Workflow](#8-prediction-workflow)
-- [9. Results Structure](#9-results-structure)
-- [10. Result Interpretation](#10-result-interpretation)
-- [11. Reproducibility](#11-reproducibility)
-- [12. Citation](#12-citation)
-- [13. License](#13-license)
-- [14. Authors / Contact](#14-authors--contact)
+- [2. Getting the Application](#2-getting-the-application)
+- [3. Repository Structure](#3-repository-structure)
+- [4. Machine-Learning Models](#4-machine-learning-models)
+- [5. Feature Selection](#5-feature-selection)
+- [6. Installation](#6-installation)
+- [7. Running the Application](#7-running-the-application)
+- [8. Input Data](#8-input-data)
+- [9. Prediction Workflow](#9-prediction-workflow)
+- [10. Results Structure](#10-results-structure)
+- [11. Result Interpretation](#11-result-interpretation)
+- [12. Reproducibility](#12-reproducibility)
+- [13. Citation](#13-citation)
+- [14. License](#14-license)
+- [15. Authors / Contact](#15-authors--contact)
 
 ## 1. Overview
 
@@ -51,7 +52,45 @@ training, dataset curation, and biological interpretation are outside the
 scope of this repository; only the trained model artifacts required for
 inference are included.
 
-## 2. Repository Structure
+## 2. Getting the Application
+
+The trained model artifacts and the prebuilt Windows executable push this
+repository well past 100 MB, so those files are tracked with
+[Git LFS](https://git-lfs.com/). If cloning with LFS is inconvenient (slow
+connection, LFS not installed, bandwidth quota, etc.), the full application
+is also mirrored on Google Drive as a plain, directly downloadable folder.
+
+### Option A: Clone the repository (recommended)
+
+This gets you the source code, the trained models, and the prebuilt
+executable in one step, with full version history.
+
+```bash
+git lfs install
+git clone <repository-url>
+```
+
+`git lfs install` only needs to be run once per machine. If `git-lfs` is
+not already available, install it first (e.g. `winget install GitHub.GitLFS`
+on Windows, `brew install git-lfs` on macOS, or `sudo apt install git-lfs`
+on Debian/Ubuntu) — see the [Git LFS installation
+guide](https://git-lfs.com/) for other platforms. Cloning without Git LFS
+installed will leave the model files and `dist/CMSMARK.exe` as small text
+pointer files instead of the real, usable files.
+
+### Option B: Download from Google Drive
+
+If cloning is not possible or Git LFS is giving you trouble, the complete
+application (source, models, and the prebuilt executable) is available as a
+regular download here:
+
+**[CMSmark on Google Drive](https://drive.google.com/drive/folders/11B0S5yHfeQgQU2mOTdrkjMih9aHb559-?usp=sharing)**
+
+Download the folder, then continue from
+[Installation](#6-installation) or, to just run the prebuilt executable,
+[Running the Application](#7-running-the-application).
+
+## 3. Repository Structure
 
 ```text
 CMSmark-AI-based-application/
@@ -82,7 +121,7 @@ CMSmark-AI-based-application/
 `dist/CMSMARK.exe` is a pre-built, self-contained Windows executable —
 reviewers or users who only want to run the classifier can download and
 double-click it directly, without installing Python or any dependencies
-(see [Running the Application](#6-running-the-application)). `build/`
+(see [Running the Application](#7-running-the-application)). `build/`
 holds PyInstaller's intermediate build artifacts from producing that
 executable and is not needed to run the app.
 
@@ -90,7 +129,7 @@ Each model directory under `src/models/` contains the trained model file
 (`.pkl`), its label encoder, its feature list (`features_*.txt`), and, where
 used for visualization, a scaler (`scaler_*.pkl`).
 
-## 3. Machine-Learning Models
+## 4. Machine-Learning Models
 
 Four models are trained on the same gene panel and used together during
 inference:
@@ -114,7 +153,7 @@ metrics (accuracy, F1-score, etc.) are stored in this repository, so none
 are reported here; performance figures, if reported, appear in the
 associated manuscript.
 
-## 4. Feature Selection
+## 5. Feature Selection
 
 Inference in this application always uses a single, fixed panel of genes
 referred to internally as the **Excellent** feature group — a set of 455
@@ -130,12 +169,12 @@ from its corresponding `features_*.txt` file, and the input data is checked
 against that exact list before prediction — inference stops with an
 explicit error if the input file is missing any required gene.
 
-## 5. Installation
+## 6. Installation
 
 These steps are only needed to run the application from source or to
 rebuild the executable. To just run the classifier on Windows, use the
 prebuilt `dist\CMSMARK.exe` instead — see
-[Running the Application](#6-running-the-application) — and skip this
+[Running the Application](#7-running-the-application) — and skip this
 section entirely.
 
 The application is written in Python and uses PyQt5 for its interface.
@@ -154,7 +193,7 @@ Python 3.10 or newer is recommended. This is not explicitly pinned in the
 repository, but it is the minimum version required by the
 `scikit-learn==1.7.0` dependency listed in `requirements.txt`.
 
-## 6. Running the Application
+## 7. Running the Application
 
 ### Quick start: prebuilt Windows executable
 
@@ -168,7 +207,7 @@ GUI on Windows.
 
 To run from source instead (for development, or on non-Windows
 platforms), from the repository root, with the environment from
-[Installation](#5-installation) active:
+[Installation](#6-installation) active:
 
 ```bash
 python src/main.py
@@ -196,7 +235,7 @@ regenerates both `build\` (intermediate PyInstaller artifacts) and
 executable can be copied to and run on another Windows machine without a
 separate Python installation.
 
-## 7. Input Data
+## 8. Input Data
 
 The application expects a CSV file containing a gene-expression count
 matrix, structured as:
@@ -227,7 +266,7 @@ in the first column, true class in the second), its values are read and
 included as a `True Class` column in the combined all-model prediction
 table. This file is optional and only affects that one output column.
 
-## 8. Prediction Workflow
+## 9. Prediction Workflow
 
 ```text
 Input CSV (genes x samples, raw counts)
@@ -245,7 +284,7 @@ Model-specific results (inference table, heatmaps)
 All-model comparison (combined table, agreement and confidence plots)
 ```
 
-## 9. Results Structure
+## 10. Results Structure
 
 Results are written under a `results/` folder inside the application's own
 directory (next to `src/` when running from source, or next to the built
@@ -279,7 +318,7 @@ Each model's own folder contains only that model's output. Files that
 compare all four models together are kept exclusively in
 `all_models_comparison/`.
 
-## 10. Result Interpretation
+## 11. Result Interpretation
 
 - **`inference_table.csv` / `.html`** — per-sample prediction and
   per-class probability for one model.
@@ -305,20 +344,20 @@ compare all four models together are kept exclusively in
   intersection region is exact and uniquely labeled, but region size is
   not meant to be read as proportional to sample count).
 
-## 11. Reproducibility
+## 12. Reproducibility
 
 - **Environment**: Python 3.10+ with the packages listed in
-  `requirements.txt` (see [Installation](#5-installation)).
+  `requirements.txt` (see [Installation](#6-installation)).
 - **Model artifacts**: inference requires the trained model files, label
   encoders, and feature lists under `src/models/`, which are included in
   this repository. No external model download is required.
 - **Running inference**: launch the application — either the prebuilt
   `dist\CMSMARK.exe` on Windows, or `python src/main.py` from source —
   upload an input CSV matching the format in
-  [Input Data](#7-input-data), set the threshold and normalization option,
+  [Input Data](#8-input-data), set the threshold and normalization option,
   and run inference.
 - **Outputs**: generated files appear under `results/` as described in
-  [Results Structure](#9-results-structure).
+  [Results Structure](#10-results-structure).
 
 **Known limitation.** `requirements.txt` pins `scikit-learn==1.7.0`. The
 bundled model files were serialized with that version; running inference
@@ -329,7 +368,7 @@ not include the raw expression datasets used to train the models or
 produce results reported in the associated manuscript — only the trained
 model artifacts needed to run inference on new input data are provided.
 
-## 12. Citation
+## 13. Citation
 
 If you use this software, please cite the associated publication. Citation
 details will be added once the manuscript is published; the entry below is
@@ -344,13 +383,13 @@ a placeholder.
 }
 ```
 
-## 13. License
+## 14. License
 
 This repository does not currently include a `LICENSE` file. Licensing
 terms have not yet been specified; until a license is added, no license
 should be assumed.
 
-## 14. Authors / Contact
+## 15. Authors / Contact
 
 Repository history attributes this project to Dorsa Hayati
 (dorsa.hayati@gmail.com). For questions specific to the associated
